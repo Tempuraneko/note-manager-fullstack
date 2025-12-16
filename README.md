@@ -31,7 +31,7 @@ npm install
 npm run dev
 
 ### Development Process (AI Usage)
--Tool used: ChatGPT, Gemini
--Example prompt: "Help refactor Vue App.vue into components"
--Modifications: Adjusted structure, fixed animations, customized UI
--Reason: Improve maintainability and UI consistency
+- Tool used: ChatGPT, Gemini
+- Example prompt: "Help refactor Vue App.vue into components"
+- Modifications: Adjusted structure, fixed animations, customized UI
+- Reason: Improve maintainability and UI consistency
