@@ -15,8 +15,12 @@ import {
   deleteNote
 } from './services/noteService';
 
-/* Constants */
-const SERVER_URL = 'http://localhost:3000';
+/* ================================
+   ✅ SERVER URL (FIXED)
+   ================================ */
+const SERVER_URL = import.meta.env.PROD
+  ? 'https://perfect-unity-production.up.railway.app'
+  : 'http://localhost:3000';
 
 /* State */
 const notes = ref([]);
@@ -41,13 +45,17 @@ const modalTitle = computed(() => {
   return 'View Note';
 });
 
-/* Helpers */
-const getNoteImage = (note) =>
-  note.image
-    ? `${SERVER_URL}/uploads/${note.image}`
-    : '/notebook.png';
+/* ================================
+   Helpers
+   ================================ */
+const getNoteImage = (note) => {
+  if (!note.image) return '/notebook.png';
+  return `${SERVER_URL}/uploads/${note.image}`;
+};
 
-/* API Actions */
+/* ================================
+   API Actions
+   ================================ */
 const loadNotes = async () => {
   const res = await fetchNotes();
   notes.value = res.data.data.reverse();
@@ -85,7 +93,9 @@ const confirmDelete = async (id) => {
   loadNotes();
 };
 
-/* Modal Controls */
+/* ================================
+   Modal Controls
+   ================================ */
 const openAddModal = () => {
   modalMode.value = 'add';
   resetForm();
@@ -113,12 +123,16 @@ const closeSuccessModal = () => {
   showSuccessModal.value = false;
 };
 
-/* Form Helpers */
+/* ================================
+   Form Helpers (FIXED IMAGE PREVIEW)
+   ================================ */
 const populateForm = (note) => {
   form.id = note.id;
   form.title = note.title;
   form.content = note.content;
   form.imageFile = null;
+
+  // ✅ FIX: correct image URL for view/edit
   form.imagePreview = note.image
     ? `${SERVER_URL}/uploads/${note.image}`
     : null;
@@ -169,39 +183,39 @@ onMounted(loadNotes);
         </div>
 
         <TransitionGroup name="list" tag="div" class="notes-grid">
-  <NoteCard
-    v-for="note in notes"
-    :key="note.id"
-    :note="note"
-    :image="getNoteImage(note)"
-    @view="openViewModal"
-    @edit="openEditModal"
-    @delete="confirmDelete"
-  />
-</TransitionGroup>
+          <NoteCard
+            v-for="note in notes"
+            :key="note.id"
+            :note="note"
+            :image="getNoteImage(note)"
+            @view="openViewModal"
+            @edit="openEditModal"
+            @delete="confirmDelete"
+          />
+        </TransitionGroup>
       </main>
     </div>
 
     <!-- NOTE MODAL -->
     <Transition name="modal-fade">
-  <NoteModal
-    v-if="showModal"
-    :mode="modalMode"
-    :title="modalTitle"
-    :form="form"
-    @close="closeModal"
-    @save="saveNote"
-    @file="onFileChange"
-  />
-</Transition>
+      <NoteModal
+        v-if="showModal"
+        :mode="modalMode"
+        :title="modalTitle"
+        :form="form"
+        @close="closeModal"
+        @save="saveNote"
+        @file="onFileChange"
+      />
+    </Transition>
 
     <!-- SUCCESS MODAL -->
     <Transition name="modal-fade">
-  <SuccessModal
-    v-if="showSuccessModal"
-    :message="successMessage"
-    @close="closeSuccessModal"
-  />
-</Transition>
+      <SuccessModal
+        v-if="showSuccessModal"
+        :message="successMessage"
+        @close="closeSuccessModal"
+      />
+    </Transition>
   </div>
 </template>

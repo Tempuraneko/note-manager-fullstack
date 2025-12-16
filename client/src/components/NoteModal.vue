@@ -4,7 +4,7 @@ import { computed } from 'vue';
 const props = defineProps({
   mode: {
     type: String,
-    required: true
+    required: true // 'add' | 'edit' | 'view'
   },
   title: {
     type: String,
@@ -34,7 +34,7 @@ const handleFileChange = (e) => {
         <button class="close-icon-btn" @click="emit('close')">&times;</button>
       </div>
 
-      <!-- Upload -->
+      <!-- Upload (ONLY add / edit) -->
       <div class="form-group" v-if="!isView">
         <label>Upload Image (Optional)</label>
         <input type="file" accept="image/*" @change="handleFileChange" />
@@ -69,23 +69,25 @@ const handleFileChange = (e) => {
 
       <!-- Actions -->
       <div class="modal-actions">
-        <button class="btn-ghost" @click="emit('close')">Cancel</button>
-
+        <!-- VIEW -->
         <button
-          v-if="!isView"
-          class="btn-primary"
-          @click="emit('save')"
-        >
-          {{ mode === 'edit' ? 'Update Note' : 'Save Note' }}
-        </button>
-
-        <button
-          v-else
+          v-if="isView"
           class="btn-primary"
           @click="emit('close')"
         >
           Close
         </button>
+
+        <!-- ADD / EDIT -->
+        <template v-else>
+          <button class="btn-ghost" @click="emit('close')">
+            Cancel
+          </button>
+
+          <button class="btn-primary" @click="emit('save')">
+            {{ mode === 'edit' ? 'Update Note' : 'Save Note' }}
+          </button>
+        </template>
       </div>
     </div>
   </div>

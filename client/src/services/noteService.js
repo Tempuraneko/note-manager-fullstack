@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/api/notes';
+export const BASE_URL = 'https://perfect-unity-production.up.railway.app';
+export const API_URL = `${BASE_URL}/api/notes`;
 
 export const fetchNotes = () => axios.get(API_URL);
 export const addNote = (formData) => axios.post(API_URL, formData);
