@@ -1,10 +1,10 @@
 # Note Manager - Full Stack Web App
 
 ## Tech Stack
-- Frontend: Vue.js
+- Frontend: Vue 3 + Vite + CSS
 - Backend: Node.js + Express
 - Database: SQLite
-- Styling: CSS
+- Deployment: Vercel (frontend), Railway (backend)
 
 ## Features
 - Create notes
@@ -13,7 +13,16 @@
 - Delete notes with confirmation
 - Image upload (optional enhancement)
 
-## Setup Instructions
+## Live Demo
+
+Frontend:
+https://your-vercel-url.vercel.app
+
+Backend API:
+https://perfect-unity-production.up.railway.app/api/notes
+
+
+## Setup Instructions (Locally)
 Open visual studio code run two terminal, one for frontend and one for backend
 
 ### Backend
