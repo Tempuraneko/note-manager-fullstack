@@ -16,7 +16,7 @@
 ## Live Demo
 
 Frontend:
-https://your-vercel-url.vercel.app
+[https://your-vercel-url.vercel.app](https://note-manager-fullstack.vercel.app/)
 
 Backend API:
 https://perfect-unity-production.up.railway.app/api/notes
