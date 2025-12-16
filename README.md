@@ -18,6 +18,7 @@ Open visual studio code run two terminal, one for frontend and one for backend
 
 ### Backend
 cd server
+
 npm install
 node index.js
 
